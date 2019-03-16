@@ -1,111 +1,74 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node {
-    struct node *prox;
-    int valor;
-} TipoNode;
 
-typedef struct lista {
-    TipoNode *inicio;
+typedef struct nos{
+    int valor;
+    struct nos *prox;
+}Tiponos;
+
+typedef struct lista{
+     Tiponos *comeco;
     int tamanho;
-} Lista;
+}Lista;
 
 void FLVazia(Lista *lista){
-    lista->inicio = NULL;
-    lista->tamanho = 0;
+    lista->comeco = NULL;
+    lista->tamanho=0;
 }
 
 int vazia(Lista lista){
-    return lista.inicio == NULL;
+    return lista.comeco == NULL;
 }
 
-void insereFim(int item, Lista *lista){
-    if (vazia(*lista)){
-        lista->inicio = malloc(sizeof(TipoNode));
-        lista->inicio->valor=item;
-        lista->inicio->prox=NULL;
+void Insere(int item,int posicao,Lista *lista){
+    if(posicao>lista->tamanho){
+        printf("Use o outro metodo para inserir um item no fim");
     }else{
-        TipoNode *prox = lista->inicio;
-        while(prox->prox != NULL){
-            prox = prox->prox;
-        }
-
-        TipoNode *novo = malloc(sizeof(TipoNode));
-        prox->prox = novo;
-        novo->valor = item;
-        novo->prox = NULL;
-    }
-    lista->tamanho++;
-}
-
-void insere(int item, int pos, Lista *lista){
-    if (pos > lista->tamanho){
-        printf("Impossível inserir pois posição <%d> é maior que tamanho <%d>");
-    }else {
-        TipoNode *novo = malloc(sizeof(TipoNode));
-        novo->valor = item;
-        novo->prox = NULL;
-
-        if(pos==1){
-            novo->prox = lista->inicio;
-            lista->inicio = novo;
+        Tiponos *novoItem = malloc(sizeof(Tiponos));
+        novoItem->valor=item;
+        if(posicao==1){
+            novoItem->prox=lista->comeco;
+            lista->comeco=novoItem;
         }else{
-            int aux = 2;
-            TipoNode *node;
-            node = lista->inicio;
-
-            while(aux < pos){
-                node = node->prox;
-                aux++;
-            }
-
-            novo->prox = node->prox;
-            node->prox = novo;
-            lista->tamanho++;
+            int auxiliar =2;
+            Tiponos *novoNo;
+            novoNo = lista->comeco;
         }
     }
 }
 
-void remover(int pos, Lista *lista){
-    if(pos == 1){
-        TipoNode *n = lista->inicio;
-        lista->inicio = lista->inicio->prox;
-        lista->tamanho--;
-        free(n);
-    }else{
-        int aux = 2;
-        TipoNode *node = lista->inicio;
-        while (aux < pos){
-            aux = aux + 1;
-            node = node->prox;
-        }
+void InsereFim(int item,Lista *lista){
 
-        TipoNode *remover = node->prox;
-        node->prox = node->prox->prox;
-        free(remover);
-    }
-}
-
-void imprime(Lista lista){
-    TipoNode *node = lista.inicio;
-    while(node != NULL){
-        printf("%d ", node->valor);
-        node = node->prox;
-    }
-    printf("\n");
+//    while (lista->prox!="null"){          ERROS DE GRAVAÇÃO
+  //      lista->prox=lista->prox->prox;
+ //   }
+   // lista *novo = (lista*)malloc(sizeof(lista)*item);
+  //  novo->prox="null";
+  //  novo->valor=item;
+  if(vazia(*lista)){ //verifica se a lista esta vazia, pois se estiver vazia entao o fim é o primeiro item
+      lista->comeco=malloc(sizeof(Tiponos));
+      lista->comeco->valor=item;
+      lista->comeco->prox=NULL;
+  }else{
+      Tiponos *atual = lista->comeco;
+      while(atual->prox!=NULL){//rodo os dados ate encontrar o fim
+            atual=atual->prox;
+      }
+      Tiponos *novoItem = malloc(sizeof(Tiponos));//aloco espaço para novo item
+      atual->prox=novoItem;//faco o item atual apontar para esse item criado
+      novoItem->valor=item;
+      novoItem->prox=NULL;
+  }
+  lista->tamanho++;//aumento o tamanho da lista
 }
 
 int main() {
-    Lista lista;
-    FLVazia(&lista);
-    insereFim(1, &lista);
-    insereFim(3, &lista);
-    insereFim(-1, &lista);
-    insereFim(5, &lista);
-    insere(10,2,&lista);
-    insere(11,1,&lista);
-    imprime(lista);
-    remover(3, &lista);
-    imprime(lista);
+    lista lista;
+    int item=1;
+    InsereFim(item,&lista);
+    item=2;
+    InsereFim(item,&lista);
+    item=3;
+    InsereFim(item,&lista);
 }
