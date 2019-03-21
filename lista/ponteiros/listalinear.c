@@ -27,6 +27,7 @@ void Insere(int item,int posicao,Lista *lista){
     }else{
         Tiponos *novoItem = malloc(sizeof(Tiponos));
         novoItem->valor=item;
+        novoItem->prox=NULL;
         if(posicao==1){
             novoItem->prox=lista->comeco;
             lista->comeco=novoItem;
@@ -34,6 +35,15 @@ void Insere(int item,int posicao,Lista *lista){
             int auxiliar =2;
             Tiponos *novoNo;
             novoNo = lista->comeco;
+
+            while(auxiliar<posicao){//procurando a posição para a inserção
+                novoNo = novoNo->prox;
+                auxiliar++;
+            }
+
+            novoItem->prox=novoNo->prox;//insiro o item na posiçao e depois faço o nó apontar pra ele
+            novoNo->prox=novoItem;
+            lista->tamanho++;
         }
     }
 }
@@ -63,12 +73,55 @@ void InsereFim(int item,Lista *lista){
   lista->tamanho++;//aumento o tamanho da lista
 }
 
+void remover(int posicao,Lista *lista){
+    if(posicao>lista->tamanho){
+        printf("O item que voce quer remover nao existe");
+    }else{
+        if(posicao == 1){
+            Tiponos *primeiroItem = lista->comeco;
+            lista->comeco=lista->comeco->prox;//excluo a imenda com o primeiro item
+            free(primeiroItem);//libero o espaço
+            lista->tamanho--;
+        }else{
+            int auxiliar =2;
+            Tiponos *novoNo = lista->comeco;
+            while(auxiliar<posicao){//rodo até achar 1 antes do item que quero excluir
+                auxiliar++;
+                novoNo=novoNo->prox;
+            }
+
+            Tiponos *itemRemovido = novoNo->prox;//recebo o item que quero remover
+            novoNo->prox=novoNo->prox->prox;//corto a linha que ligava aquele item
+            free(itemRemovido);//libero o espaço dele
+        }
+    }
+
+}
+
+void imprime(Lista lista){
+    Tiponos *no = lista.comeco;
+    while(no!= NULL){
+        printf("%d \n",no->valor);
+        no=no->prox;
+    }
+
+}
+
 int main() {
-    lista lista;
-    int item=1;
-    InsereFim(item,&lista);
-    item=2;
-    InsereFim(item,&lista);
-    item=3;
-    InsereFim(item,&lista);
+    Lista lista;
+    FLVazia(&lista);
+    imprime(lista);
+    printf("\n vazia \n");
+
+    InsereFim(3,&lista);
+
+    InsereFim(2,&lista);
+
+    Insere(1,2,&lista);
+
+    InsereFim(0,&lista);
+    imprime(lista);
+    printf("\n inserindo \n");
+    remover(2,&lista);
+    imprime(lista);
 }
