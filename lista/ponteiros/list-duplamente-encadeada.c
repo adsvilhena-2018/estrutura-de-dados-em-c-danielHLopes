@@ -33,7 +33,7 @@ void Insere(int item,int posicao,Lista *lista){
         if(posicao==1){
 
             novoItem->prox=lista->comeco;
-            lista->comeco->ant=novoItem;
+            lista->comeco->ant=novoItem;//
             lista->comeco=novoItem;
         }else{
             int auxiliar =2;
@@ -55,12 +55,7 @@ void Insere(int item,int posicao,Lista *lista){
 
 void InsereFim(int item,Lista *lista){
 
-//    while (lista->prox!="null"){          ERROS DE GRAVAÇÃO
-    //      lista->prox=lista->prox->prox;
-    //   }
-    // lista *novo = (lista*)malloc(sizeof(lista)*item);
-    //  novo->prox="null";
-    //  novo->valor=item;
+
     if(vazia(*lista)){ //verifica se a lista esta vazia, pois se estiver vazia entao o fim é o primeiro item
         lista->comeco=malloc(sizeof(Tiponos));
         lista->comeco->valor=item;
