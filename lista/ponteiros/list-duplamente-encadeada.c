@@ -55,7 +55,12 @@ void Insere(int item,int posicao,Lista *lista){
 
 void InsereFim(int item,Lista *lista){
 
-
+//    while (lista->prox!="null"){          ERROS DE GRAVAÇÃO
+    //      lista->prox=lista->prox->prox;
+    //   }
+    // lista *novo = (lista*)malloc(sizeof(lista)*item);
+    //  novo->prox="null";
+    //  novo->valor=item;
     if(vazia(*lista)){ //verifica se a lista esta vazia, pois se estiver vazia entao o fim é o primeiro item
         lista->comeco=malloc(sizeof(Tiponos));
         lista->comeco->valor=item;
@@ -87,15 +92,15 @@ void remover(int posicao,Lista *lista){
             lista->tamanho--;
         }else{
             int auxiliar =2;
-            Tiponos *novoNo = lista->comeco;
+            Tiponos *noControle = lista->comeco;
             while(auxiliar<posicao){//rodo até achar 1 antes do item que quero excluir
                 auxiliar++;
-                novoNo=novoNo->prox;
+                noControle=noControle->prox;
             }
 
-            Tiponos *itemRemovido = novoNo->prox;//recebo o item que quero remover
-            novoNo->prox->prox->ant=novoNo->prox;//
-            novoNo->prox=novoNo->prox->prox;//corto a linha que ligava aquele item
+            Tiponos *itemRemovido = noControle->prox;//recebo o item que quero remover
+            noControle->prox->prox->ant=noControle;//
+            noControle->prox=noControle->prox->prox;//corto a linha que ligava aquele item
 
             free(itemRemovido);//libero o espaço dele
         }
@@ -109,8 +114,8 @@ void imprime(Lista lista){
         printf("%d \n",no->valor);
         no=no->prox;
     }
-
 }
+
 
 int main() {
     Lista lista;
@@ -122,6 +127,7 @@ int main() {
 
     InsereFim(2,&lista);
 
+
     Insere(1,2,&lista);
 
     InsereFim(0,&lista);
@@ -129,4 +135,7 @@ int main() {
     printf("\n inserindo \n");
     remover(2,&lista);
     imprime(lista);
+
+
+
 }
