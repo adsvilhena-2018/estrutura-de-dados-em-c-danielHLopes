@@ -45,7 +45,7 @@ void enfileira(int item, Lista *fila){
 
 void desenfileira(Lista *fila){
     if(fila->tamanho==0){
-        printf("Você está com uma fila vazia");
+        printf("Você está com uma fila vazia\n");
     }else{
             Tiponos *primeiroItem = fila->comeco;
             fila->comeco=fila->comeco->prox;//excluo a imenda com o primeiro item
@@ -66,15 +66,16 @@ void imprime(Lista lista){
 }
 
 int main() {
-    Lista lista;
-    FLVazia(&lista);
-    imprime(lista);
+    Lista fila;
+    FLVazia(&fila);
+    imprime(fila);
     printf("\n vazia \n");
-    enfileira(3, &lista);
-    enfileira(2, &lista);
-    enfileira(0, &lista);
-    imprime(lista);
+    desenfileira(&fila);
+    enfileira(3, &fila);
+    enfileira(2, &fila);
+    enfileira(0, &fila);
+    imprime(fila);
     printf("\n inserindo \n");
-    desenfileira( &lista);
-    imprime(lista);
+    desenfileira( &fila);
+    imprime(fila);
 }
