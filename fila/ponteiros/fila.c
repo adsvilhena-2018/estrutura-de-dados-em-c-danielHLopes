@@ -43,28 +43,16 @@ void enfileira(int item, Lista *fila){
     fila->tamanho++;//aumento o tamanho da fila
 }
 
-void desenfileira(int posicao, Lista *fila){
-    if(posicao>fila->tamanho){
-        printf("O item que voce quer desenfileira nao existe");
+void desenfileira(Lista *fila){
+    if(fila->tamanho==0){
+        printf("Você está com uma fila vazia");
     }else{
-        if(posicao == 1){
             Tiponos *primeiroItem = fila->comeco;
             fila->comeco=fila->comeco->prox;//excluo a imenda com o primeiro item
             free(primeiroItem);//libero o espaço
             fila->tamanho--;
-        }else{
-            int auxiliar =2;
-            Tiponos *novoNo = fila->comeco;
-            while(auxiliar<posicao){//rodo até achar 1 antes do item que quero excluir
-                auxiliar++;
-                novoNo=novoNo->prox;
-            }
-
-            Tiponos *itemRemovido = novoNo->prox;//recebo o item que quero desenfileira
-            novoNo->prox=novoNo->prox->prox;//corto a linha que ligava aquele item
-            free(itemRemovido);//libero o espaço dele
         }
-    }
+
 
 }
 
@@ -82,15 +70,11 @@ int main() {
     FLVazia(&lista);
     imprime(lista);
     printf("\n vazia \n");
-
     enfileira(3, &lista);
-
     enfileira(2, &lista);
-
-
     enfileira(0, &lista);
     imprime(lista);
     printf("\n inserindo \n");
-    desenfileira(2, &lista);
+    desenfileira( &lista);
     imprime(lista);
 }
