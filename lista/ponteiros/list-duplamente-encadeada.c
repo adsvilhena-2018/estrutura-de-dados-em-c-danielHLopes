@@ -24,7 +24,7 @@ int vazia(Lista lista){
 
 void Insere(int item,int posicao,Lista *lista){
     if(posicao>lista->tamanho){
-        printf("Use o outro metodo para inserir um item no fim");
+        printf("Use o outro metodo para inserir um item no fim\n");
     }else{
         Tiponos *novoItem = malloc(sizeof(Tiponos));
         novoItem->valor=item;
@@ -47,6 +47,7 @@ void Insere(int item,int posicao,Lista *lista){
 
             novoItem->prox=noControle->prox;//insiro o item na posiçao e depois faço o nó apontar pra ele
             noControle->prox=novoItem;
+            noControle->prox->prox->ant=novoItem;
             novoItem->ant=noControle;//
             lista->tamanho++;
         }
@@ -121,13 +122,17 @@ int main() {
 
     InsereFim(2,&lista);
 
+    InsereFim(4,&lista);
+    InsereFim(5,&lista);
+    InsereFim(6,&lista);
 
-    Insere(1,2,&lista);
+
 
     InsereFim(0,&lista);
     imprime(lista);
     printf("\n inserindo \n");
-    remover(2,&lista);
+    //remover(2,&lista);
+    Insere(1,3,&lista);
     imprime(lista);
 
 
