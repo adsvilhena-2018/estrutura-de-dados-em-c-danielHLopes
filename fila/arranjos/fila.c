@@ -14,7 +14,7 @@ void esvaziar(Lista *fila){
         fila->array[i]=NULL;
     }
     fila->comeco=-1;
-    fila->fim=-2;
+    fila->fim=-10;
     fila->tamanho=0;
 }
 int vazia(Lista fila){
@@ -48,7 +48,7 @@ void enfileira(Lista *fila,int item){
         if(((fila->comeco==0)&&(fila->fim==5))^((fila->comeco-1)==fila->fim)){/*cheio(*fila)*/
             printf("Fila cheia\n");
         }else {
-            if(fila->fim==-2){
+            if(fila->fim==-10){
                 fila->fim=0;
             }
             int lugarAtual = fila->fim + 1;
